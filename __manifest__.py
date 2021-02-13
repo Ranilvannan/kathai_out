@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'kathai Out',
+    'name': 'kathai OUT',
     'version': '1.1',
     'summary': 'Kathai',
     'sequence': 15,

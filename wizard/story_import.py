@@ -6,8 +6,8 @@ import os
 PATH = config["kathai_kudu_import_path"]
 
 
-class KathaiKuduImport(models.TransientModel):
-    _name = "kathai.kudu.import"
+class KathaiOuImport(models.TransientModel):
+    _name = "kathai.out.import"
     _description = "Story Import"
 
     name = fields.Char(string="Name")
@@ -17,10 +17,10 @@ class KathaiKuduImport(models.TransientModel):
 
         for files in file_list:
             stories = self.get_story_content(files)
-            self.env["kathai.kudu.story"].create(stories)
+            self.env["kathai.out.story"].create(stories)
 
     def check_and_remove_story(self, seq):
-        recs = self.env["kathai.kudu.story"].search([("sequence", "=", seq)])
+        recs = self.env["kathai.out.story"].search([("sequence", "=", seq)])
         if recs:
             recs.unlink()
 
