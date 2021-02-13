@@ -36,6 +36,6 @@
               name="Import"
               parent="kathai_kudu_menu"
               action="kathai_kudu_import_action"
-              sequence="10"/>
+              sequence="30"/>
 
 </odoo>

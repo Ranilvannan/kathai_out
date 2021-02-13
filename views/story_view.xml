@@ -7,10 +7,11 @@
         <field name="arch" type="xml">
             <form string="Story">
                 <sheet>
+                    <h1><field name="sequence"/></h1>
                     <group>
                         <field name="title"/>
                         <field name="preview"/>
-                        <field name="tag_ids"/>
+                        <field name="tag_ids" widget="many2many_tags"/>
                     </group>
                     <notebook>
                         <page string="Content">
