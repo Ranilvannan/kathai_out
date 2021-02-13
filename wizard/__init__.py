@@ -1,1 +1,1 @@
-from . import import_story
+from . import story_import

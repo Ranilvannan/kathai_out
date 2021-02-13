@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+kathai_kudu_tags_admin,kathai.kudu.tags.admin,model_kathai_kudu_tags,kathai_kudu_admin,1,1,1,1
+kathai_kudu_story_admin,kathai.kudu.story.admin,model_kathai_kudu_story,kathai_kudu_admin,1,1,1,1
+kathai_kudu_content_admin,kathai.kudu.content.admin,model_kathai_kudu_content,kathai_kudu_admin,1,1,1,1
+kathai_kudu_import_admin,kathai.kudu.import.admin,model_kathai_kudu_import,kathai_kudu_admin,1,1,1,1
