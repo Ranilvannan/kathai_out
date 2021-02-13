@@ -1,9 +1,10 @@
 from odoo import models, fields
 
 
-class KathaiKuduTags(models.Model):
-    _name = "kathai.kudu.tags"
-    _description = "Kathai Kudu Tags"
+class KathaiOutTags(models.Model):
+    _name = "kathai.out.tags"
+    _description = "Tags"
     _rec_name = "name"
 
     name = fields.Char(string="Name")
+    code = fields.Char(string="Code")

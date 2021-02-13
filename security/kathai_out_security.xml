@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="ir.module.category" id="kathai_out_category">
+            <field name="name">Kathai OUT</field>
+            <field name="description">Kathai OUT</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="kathai_out_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="kathai_t_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

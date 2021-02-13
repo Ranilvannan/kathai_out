@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'kathai Kudu',
+    'name': 'kathai Out',
     'version': '1.1',
     'summary': 'Kathai',
     'sequence': 15,
@@ -11,7 +11,7 @@
     'images': [],
     'depends': ['base', 'web', 'mail'],
     'data': [
-        'security/kathai_kudu_security.xml',
+        'security/kathai_out_security.xml',
         'security/ir.model.access.csv',
         'views/menu_view.xml',
         'views/story_view.xml',

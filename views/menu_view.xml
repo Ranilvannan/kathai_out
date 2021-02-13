@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="kathai_kudu_menu" name="Kathai KDU" sequence="10"/>
+    <menuitem id="kathai_out_menu" name="Kathai OUT" sequence="10"/>
 
 </odoo>

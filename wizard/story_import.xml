@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="kathai_kudu_import_form" model="ir.ui.view">
-        <field name="name">kathai.kudu.import.form</field>
-        <field name="model">kathai.kudu.import</field>
+    <record id="kathai_out_import_form" model="ir.ui.view">
+        <field name="name">kathai.out.import.form</field>
+        <field name="model">kathai.out.import</field>
         <field name="arch" type="xml">
             <form string="Import">
                 <sheet>
@@ -16,9 +16,9 @@
         </field>
     </record>
 
-    <record id="kathai_kudu_import_tree" model="ir.ui.view">
-        <field name="name">kathai.kudu.import.tree</field>
-        <field name="model">kathai.kudu.import</field>
+    <record id="kathai_out_import_tree" model="ir.ui.view">
+        <field name="name">kathai.out.import.tree</field>
+        <field name="model">kathai.out.import</field>
         <field name="arch" type="xml">
             <tree name="Import">
                 <field name="name"/>
@@ -26,16 +26,16 @@
         </field>
     </record>
 
-    <record id="kathai_kudu_import_action" model="ir.actions.act_window">
+    <record id="kathai_out_import_action" model="ir.actions.act_window">
         <field name="name">Import</field>
-        <field name="res_model">kathai.kudu.import</field>
+        <field name="res_model">kathai.out.import</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="kathai_kudu_import_menu"
+    <menuitem id="kathai_out_import_menu"
               name="Import"
-              parent="kathai_kudu_menu"
-              action="kathai_kudu_import_action"
+              parent="kathai_out_menu"
+              action="kathai_out_import_action"
               sequence="30"/>
 
 </odoo>

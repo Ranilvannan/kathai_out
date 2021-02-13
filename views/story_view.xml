@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="kathai_kudu_story_form" model="ir.ui.view">
-        <field name="name">kathai.kudu.story.form</field>
-        <field name="model">kathai.kudu.story</field>
+    <record id="kathai_out_story_form" model="ir.ui.view">
+        <field name="name">kathai.out.story.form</field>
+        <field name="model">kathai.out.story</field>
         <field name="arch" type="xml">
             <form string="Story">
                 <sheet>
@@ -28,9 +28,9 @@
         </field>
     </record>
 
-    <record id="kathai_kudu_story_book_tree" model="ir.ui.view">
-        <field name="name">kathai.kudu.story.tree</field>
-        <field name="model">kathai.kudu.story</field>
+    <record id="kathai_out_story_book_tree" model="ir.ui.view">
+        <field name="name">kathai.out.story.tree</field>
+        <field name="model">kathai.out.story</field>
         <field name="arch" type="xml">
             <tree name="Story">
                 <field name="title"/>
@@ -40,16 +40,16 @@
         </field>
     </record>
 
-    <record id="kathai_kudu_story_action" model="ir.actions.act_window">
+    <record id="kathai_out_story_action" model="ir.actions.act_window">
         <field name="name">Story</field>
-        <field name="res_model">kathai.kudu.story</field>
+        <field name="res_model">kathai.out.story</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="kathai_kudu_story_menu"
+    <menuitem id="kathai_out_story_menu"
               name="Story"
-              parent="kathai_kudu_menu"
-              action="kathai_kudu_story_action"
+              parent="kathai_out_menu"
+              action="kathai_out_story_action"
               sequence="10"/>
 
 </odoo>
