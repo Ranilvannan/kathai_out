@@ -3,7 +3,7 @@ from odoo.tools import config
 import xml.etree.ElementTree as et
 import os
 
-PATH = config["kathai_kudu_import_path"]
+PATH = config["kathai_out_import_path"]
 
 
 class KathaiOuImport(models.TransientModel):
