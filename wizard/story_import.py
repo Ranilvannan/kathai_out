@@ -21,6 +21,11 @@ class KathaiOuImport(models.TransientModel):
             stories = self.get_story_content(files)
             story_obj = self.env["kathai.out.story"].create(stories)
             self.update_mongodb(story_obj)
+            self.remove_files(files)
+
+    def remove_files(self, path):
+        if os.path.exists(path):
+            os.remove(path)
 
     def update_mongodb(self, recs):
         cli = pymongo.MongoClient(MONGO_URI)
