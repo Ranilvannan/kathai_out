@@ -8,6 +8,7 @@ class KathaiOutStory(models.Model):
 
     sequence = fields.Char(string="Sequence")
 
+    url = fields.Text(string="URL")
     title = fields.Text(string="Title")
     preview = fields.Text(string="Preview")
     content_ids = fields.One2many(comodel_name="kathai.out.content", inverse_name="story_id")

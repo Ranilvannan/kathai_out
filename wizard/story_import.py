@@ -33,9 +33,9 @@ class KathaiOuImport(models.TransientModel):
         col = db["story"]
 
         for rec in recs:
-            col.delete_many({"title": rec.title})
+            col.delete_many({"url": rec.url})
 
-        story_list = [{"title": rec.title, "record_id": rec.id} for rec in recs]
+        story_list = [{"url": rec.url, "record_id": rec.id} for rec in recs]
 
         if story_list:
             col.insert_many(story_list)
@@ -71,12 +71,15 @@ class KathaiOuImport(models.TransientModel):
             sequence = story.find("sequence").text
             paragraphs = story.findall("content")
 
+            tmp_title = story.find("title").text
+
             content = [(0, 0, {"order_seq": int(rec.attrib.get("order_seq", 0)),
                         "paragraph": rec.text}) for rec in paragraphs]
 
             self.check_and_remove_story(sequence)
 
             story_list.append({"sequence": sequence,
+                               "url": tmp_title.replace(" ", "_"),
                                "title": title,
                                "preview": preview,
                                "content_ids": content})
