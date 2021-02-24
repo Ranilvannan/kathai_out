@@ -2,8 +2,10 @@ from odoo import models, fields
 from odoo.tools import config
 import xml.etree.ElementTree as et
 import os
+import pymongo
 
 PATH = config["kathai_out_import_path"]
+MONGO_URI = config["kathai_out_mongo_uri"]
 
 
 class KathaiOuImport(models.TransientModel):
@@ -17,7 +19,21 @@ class KathaiOuImport(models.TransientModel):
 
         for files in file_list:
             stories = self.get_story_content(files)
-            self.env["kathai.out.story"].create(stories)
+            story_obj = self.env["kathai.out.story"].create(stories)
+            self.update_mongodb(story_obj)
+
+    def update_mongodb(self, recs):
+        cli = pymongo.MongoClient(MONGO_URI)
+        db = cli["kathai_client"]
+        col = db["story"]
+
+        for rec in recs:
+            col.delete_many({"title": rec.title})
+
+        story_list = [{"title": rec.title, "record_id": rec.id} for rec in recs]
+
+        if story_list:
+            col.insert_many(story_list)
 
     def check_and_remove_story(self, seq):
         recs = self.env["kathai.out.story"].search([("sequence", "=", seq)])
