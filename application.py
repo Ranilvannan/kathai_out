@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template, abort
 from flask_pymongo import PyMongo
+from story_insert import mongo, StoryInsert
 
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
-
-mongo = PyMongo(app)
+mongo.init_app(app)
 
 
 @app.route('/')
@@ -31,4 +31,10 @@ def page_not_found(error):
 
 @app.cli.command('story_update')
 def story_update():
-    print("i Call")
+    path = app.config.get("IMPORT_PATH")
+    si = StoryInsert(path)
+    si.trigger_import()
+
+
+
+
