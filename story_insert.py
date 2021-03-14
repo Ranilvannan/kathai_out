@@ -34,8 +34,7 @@ class StoryInsert:
             recs = json.load(json_file)
             if isinstance(recs, list):
                 for rec in recs:
-                    print(rec["story_id"])
-                    res = mongo.db.hindi.find({"story_id": rec["story_id"]})
+                    res = mongo.db.hindi.find({"story_id": rec["story_id"]}).count()
                     if res:
                         update_list.append(rec)
                     else:
