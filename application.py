@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, abort
 from flask_pymongo import PyMongo
 from story_insert import mongo, StoryInsert
+from pagination import Pagination
 
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
