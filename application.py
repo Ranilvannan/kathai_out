@@ -29,7 +29,18 @@ def home_page():
 @app.route('/category/<category>/')
 @app.route('/category/<category>')
 def category_page(category):
-    return render_template('test.html')
+    page = request.args.get("page", type=int, default=1)
+    story_list = mongo.db.hindi.find({"tags.url": category}) \
+        .sort("story_id", -1) \
+        .skip(PER_PAGE * (page - 1)) \
+        .limit(PER_PAGE)
+
+    total_story = story_list.count()
+    if not total_story:
+        abort(404)
+
+    pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
+    return render_template('home_page.html', records=story_list, pagination=pagination)
 
 
 @app.route('/story/<title>/')
