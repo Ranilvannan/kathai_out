@@ -4,7 +4,7 @@
         <a href="?page={{ pagination.prev_page }}"
            class="btn btn-outline-success
            {% if pagination.page == 1 %}disabled{% endif %}">
-           &laquo;
+           Prev
         </a>
 
         {% for rec in pagination.get_pages() %}
@@ -26,7 +26,7 @@
         <a href="?page={{ pagination.next_page }}"
            class="btn btn-outline-success
            {% if pagination.page == pagination.total_page %}disabled{% endif %}">
-           &raquo;
+           Next
         </a>
     </div>
 {% endif %}
