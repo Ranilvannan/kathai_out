@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, abort
 from flask_pymongo import PyMongo
-from story_insert import mongo, StoryInsert
+from story_insert import mongo, StoryInsert, CategoryInsert
 from pagination import Pagination
 
 app = Flask(__name__)
@@ -22,10 +22,13 @@ def home_page():
     if not total_story:
         abort(404)
 
+    category_list = mongo.db.hindi_category.find()
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
+
     return render_template('home_page.html',
                            records=story_list,
                            pagination=pagination,
+                           category_list=category_list,
                            title="Home")
 
 
@@ -73,5 +76,9 @@ def story_update():
     si.trigger_import()
 
 
-
+@app.cli.command('category_update')
+def category_update():
+    path = app.config.get("IMPORT_PATH")
+    ci = CategoryInsert(path)
+    ci.trigger_import()
 
