@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 mongo.init_app(app)
 
-PER_PAGE = 9
+PER_PAGE = 1
 
 
 @app.route('/')
@@ -21,6 +21,7 @@ def index_page():
 
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
     print(pagination.is_valid())
+    print(pagination.get_pages())
     return render_template('home_page.html', records=story_list, pagination=pagination)
 
 

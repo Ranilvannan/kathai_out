@@ -54,5 +54,5 @@ class Pagination:
 
 
         print(page_list)
-
+        return page_list
 

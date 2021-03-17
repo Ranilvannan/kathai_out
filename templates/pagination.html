@@ -7,6 +7,21 @@
            &laquo;
         </a>
 
+        {% for rec in pagination.get_pages() %}
+            {% if rec==pagination.page %}
+                <a href="?page={{ rec }}"
+                   class="btn btn-success">
+                    {{ rec }}
+                </a>
+            {% elif rec=='...' %}
+                ...
+            {% else %}
+            <a href="?page={{ rec }}"
+               class="btn btn-outline-success">
+                {{ rec }}
+            </a>
+            {% endif %}
+        {% endfor %}
 
         <a href="?page={{ pagination.next_page }}"
            class="btn btn-outline-success
