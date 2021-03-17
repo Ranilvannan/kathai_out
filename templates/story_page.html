@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} {{story.title}} {% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top:90px">
+	<div class="row">
+		<div class="col-sm-7 article">
+			{% if story %}
+			<h2>{{story.title}}</h2>
+			{% if story.parent_url %}
+			<div class="alert alert-success">
+				Prev: <a href="#">{{story.parent_url}}</a>
+			</div>
+			{% endif %}
+			{% for rec in story.content_ids %}
+			<p>{{ rec.content }}</p>
+			{% endfor %}
+			{% endif %}
+		</div>
+
+	</div>
+</div>
+{% endblock %}

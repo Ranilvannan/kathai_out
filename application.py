@@ -47,10 +47,15 @@ def category_page(category):
                            tags=tags["tags"][0]["name"])
 
 
-@app.route('/story/<title>/')
-@app.route('/story/<title>')
-def story_page(title=None):
-    return render_template('test.html')
+@app.route('/story/<site_url>/')
+@app.route('/story/<site_url>')
+def story_page(site_url):
+    story = mongo.db.hindi.find_one({"site_url": site_url})
+
+    if not story:
+        abort(404)
+
+    return render_template('story_page.html', story=story)
 
 
 @app.errorhandler(404)
