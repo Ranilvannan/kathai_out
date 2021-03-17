@@ -7,17 +7,21 @@ app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 mongo.init_app(app)
 
+PER_PAGE = 9
+
 
 @app.route('/')
 def index_page():
-    story_list = mongo.db.hindi.find()
-    print(story_list, "----")
-    print(dir(story_list), "----")
-    print(story_list.count(), "----")
-    if not story_list.count():
+    page = request.args.get("page", type=int, default=1)
+    story_list = mongo.db.hindi.find().skip(PER_PAGE*(page-1)).limit(PER_PAGE)
+
+    total_story = story_list.count()
+    if not total_story:
         abort(404)
 
-    return render_template('home_page.html', records=story_list)
+    pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
+    print(pagination.is_valid())
+    return render_template('home_page.html', records=story_list, pagination=pagination)
 
 
 @app.route('/tags/<tags>/')

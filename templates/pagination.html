@@ -1,0 +1,17 @@
+{% if pagination.is_valid%}
+    <div class="text-right p-4">
+
+        <a href="?page={{ pagination.prev_page }}"
+           class="btn btn-outline-success
+           {% if pagination.page == 1 %}disabled{% endif %}">
+           &laquo;
+        </a>
+
+
+        <a href="?page={{ pagination.next_page }}"
+           class="btn btn-outline-success
+           {% if pagination.page == pagination.total_page %}disabled{% endif %}">
+           &raquo;
+        </a>
+    </div>
+{% endif %}
