@@ -4,19 +4,19 @@
 {% block body %}
 <div class="container" style="margin-top:70px">
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-7 article">
 			{% for rec in records %}
 				<div class="blog-post" onclick="location.href='{{ url_for('story_page', title=rec.site_url) }}'">
-					<h2 class="blog-post-title" style="padding:15px;">{{ rec.site_title }}</h2>
-					<p class="blog-post-preview" style="padding:15px;">{{ rec.site_preview }}</p>
+					<h2 class="blog-post-title p-2">{{ rec.site_title }}</h2>
+					<p class="blog-post-preview p-2">{{ rec.site_preview }}</p>
 				</div>
 				{% for tag in rec.tags %}
-					<p>
+					<p class="p-2">
 						<strong>Category</strong>
-						<span class="bg-success p-2 text-white rounded">{{ tag.name }}</span>
+						<button type="button" class="btn btn-success">{{ tag.name }}</button>
 					</p>
 				{% endfor %}
-				<hr>
+				<hr class="dashed">
 			{% endfor %}
 		</div>
 	</div>
