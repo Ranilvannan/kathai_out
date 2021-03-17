@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 mongo.init_app(app)
 
-PER_PAGE = 1
+PER_PAGE = 9
 
 
 @app.route('/')
@@ -22,12 +22,7 @@ def home_page():
     if not total_story:
         abort(404)
 
-    # category_list = mongo.db.hindi_category.find()
-    category_list = [{"name": "Name 1", "url": "url_1"},
-                     {"name": "Name 2", "url": "url_2"},
-                     {"name": "Name 3", "url": "url_3"},
-                     {"name": "Name 4", "url": "url_4"},
-                     {"name": "Name 5", "url": "url_5"}]
+    category_list = mongo.db.hindi_category.find()
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
     return render_template('home_page.html',
@@ -50,12 +45,7 @@ def category_page(category):
     if not total_story:
         abort(404)
 
-    # category_list = mongo.db.hindi_category.find()
-    category_list = [{"name": "Name 1", "url": "url_1"},
-                     {"name": "Name 2", "url": "url_2"},
-                     {"name": "Name 3", "url": "url_3"},
-                     {"name": "Name 4", "url": "url_4"},
-                     {"name": "Name 5", "url": "url_5"}]
+    category_list = mongo.db.hindi_category.find()
     tags = mongo.db.hindi.find_one({"tags.url": category}, {"tags.name": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
@@ -74,12 +64,7 @@ def story_page(site_url):
     if not story:
         abort(404)
 
-    # category_list = mongo.db.hindi_category.find()
-    category_list = [{"name": "Name 1", "url": "url_1"},
-                     {"name": "Name 2", "url": "url_2"},
-                     {"name": "Name 3", "url": "url_3"},
-                     {"name": "Name 4", "url": "url_4"},
-                     {"name": "Name 5", "url": "url_5"}]
+    category_list = mongo.db.hindi_category.find()
     return render_template('story_page.html',
                            story=story,
                            category_list=category_list)

@@ -45,14 +45,9 @@ class Pagination:
             page_list.append(self.total_page)
 
         if (1 < self.prev_page < self.total_page) and (self.prev_page not in page_list) and self.has_prev():
-            print("Preview Added")
             page_list.insert(1, '...')
 
         if (1 < self.next_page < self.total_page) and (self.next_page not in page_list) and self.has_next():
-            print("Next Added")
             page_list.insert(len(page_list) - 1, '...')
 
-
-        print(page_list)
         return page_list
-
