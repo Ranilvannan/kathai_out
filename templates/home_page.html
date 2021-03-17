@@ -5,9 +5,9 @@
 
 
 {% block body %}
-<div class="container" style="margin-top:70px">
+<div class="container" style="margin-top:90px">
 	<div class="row">
-		<div class="col-sm-7 article">
+		<div class="col-sm-7 article pt-4">
 			{% for rec in records %}
 				<div class="blog-post" onclick="location.href='{{ url_for('story_page', site_url=rec.site_url) }}'">
 					<h2 class="blog-post-title p-2">{{ rec.site_title }}</h2>
