@@ -4,50 +4,14 @@
 	<title>{% block title %}{% endblock %}</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
 	<meta name="keywords" content="{% block keywords %}{% endblock %}">
+	<link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='img/favicon.png') }}"/>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<style>
-	body {
-  		letter-spacing: 1.5px;
-  		line-height: 1.6;
-  		color: rgba(37,38,94,0.9);
-		font-family: "euclid_circular_a","Source Sans Pro","Helvetica Neue","Helvetica","Arial",sans-serif;
-		text-rendering: optimizeLegibility;
-		font-size: 18px;
-		background: #28a74514;
-	}
-
-	.blog-post{
-		cursor: pointer;
-	}
-
-	.navbar {
-
-	top: 0;
-	position: fixed;
-	width: 100%;
-	z-index: 21;
-
-    -webkit-box-shadow: 0 8px 6px -6px #999;
-    -moz-box-shadow: 0 8px 6px -6px #999;
-    box-shadow: 0 8px 6px -6px #999;
-
-    /* the rest of your styling */
-}
-
-hr.dashed {
-  border-top: 2px dashed green;
-}
-
-.article{
-	background: white;
-}
-
-	</style>
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-sm bg-success navbar-dark">
