@@ -11,7 +11,7 @@ PER_PAGE = 1
 
 
 @app.route('/')
-def index_page():
+def home_page():
     page = request.args.get("page", type=int, default=1)
     story_list = mongo.db.hindi.find().skip(PER_PAGE*(page-1)).limit(PER_PAGE)
 
@@ -23,9 +23,9 @@ def index_page():
     return render_template('home_page.html', records=story_list, pagination=pagination)
 
 
-@app.route('/tags/<tags>/')
-@app.route('/tags/<tags>')
-def tag_page(tags):
+@app.route('/category/<category>/')
+@app.route('/category/<category>')
+def category_page(category):
     return render_template('test.html')
 
 
