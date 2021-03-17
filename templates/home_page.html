@@ -10,8 +10,8 @@
 		<div class="col-sm-7 article pt-4">
 			{% for rec in records %}
 				<div class="blog-post" onclick="location.href='{{ url_for('story_page', site_url=rec.site_url) }}'">
-					<h2 class="blog-post-title p-2">{{ rec.site_title }}</h2>
-					<p class="blog-post-preview p-2">{{ rec.site_preview }}</p>
+					<h2 class="blog-post-title p-2">{{ rec.title }}</h2>
+					<p class="blog-post-preview p-2">{{ rec.preview }}</p>
 				</div>
 				<div class="text-muted float-right small">Last Updated on {{ rec.story_id }}</div><br>
 				<p class="p-2">
