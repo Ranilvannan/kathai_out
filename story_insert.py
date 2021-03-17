@@ -69,7 +69,7 @@ class CategoryInsert:
 
     def bulk_insert(self, recs):
         if recs:
-            mongo.db.hindi.insert_many(recs)
+            mongo.db.hindi_category.insert_many(recs)
 
     def update_story(self, recs):
         for rec in recs:

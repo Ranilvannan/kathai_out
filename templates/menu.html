@@ -1,0 +1,9 @@
+<div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+        {% for rec in category_list %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('category_page', category='{{rec.url}}') }}">{{rec.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
