@@ -23,7 +23,10 @@ def home_page():
         abort(404)
 
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
-    return render_template('home_page.html', records=story_list, pagination=pagination)
+    return render_template('home_page.html',
+                           records=story_list,
+                           pagination=pagination,
+                           title="Home")
 
 
 @app.route('/category/<category>/')
@@ -41,10 +44,10 @@ def category_page(category):
 
     tags = mongo.db.hindi.find_one({"tags.url": category}, {"tags.name": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
-    return render_template('category_page.html',
+    return render_template('home_page.html',
                            records=story_list,
                            pagination=pagination,
-                           tags=tags["tags"][0]["name"])
+                           title=tags["tags"][0]["name"])
 
 
 @app.route('/story/<site_url>/')
