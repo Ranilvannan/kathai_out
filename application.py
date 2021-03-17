@@ -20,8 +20,6 @@ def index_page():
         abort(404)
 
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
-    print(pagination.is_valid())
-    print(pagination.get_pages())
     return render_template('home_page.html', records=story_list, pagination=pagination)
 
 
