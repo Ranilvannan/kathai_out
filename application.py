@@ -10,7 +10,14 @@ mongo.init_app(app)
 
 @app.route('/')
 def index_page():
-    return render_template('test.html')
+    story_list = mongo.db.hindi.find()
+    print(story_list, "----")
+    print(dir(story_list), "----")
+    print(story_list.count(), "----")
+    if not story_list.count():
+        abort(404)
+
+    return render_template('home_page.html', records=story_list)
 
 
 @app.route('/tags/<tags>/')
