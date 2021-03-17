@@ -13,7 +13,10 @@ PER_PAGE = 1
 @app.route('/')
 def home_page():
     page = request.args.get("page", type=int, default=1)
-    story_list = mongo.db.hindi.find().skip(PER_PAGE*(page-1)).limit(PER_PAGE)
+    story_list = mongo.db.hindi.find()\
+        .sort("story_id", -1)\
+        .skip(PER_PAGE*(page-1))\
+        .limit(PER_PAGE)
 
     total_story = story_list.count()
     if not total_story:
