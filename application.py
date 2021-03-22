@@ -13,7 +13,7 @@ PER_PAGE = 9
 @app.route('/')
 def home_page():
     page = request.args.get("page", type=int, default=1)
-    story_list = mongo.db.hindi.find()\
+    story_list = mongo.db.english.find()\
         .sort("story_id", -1)\
         .skip(PER_PAGE*(page-1))\
         .limit(PER_PAGE)
@@ -22,7 +22,7 @@ def home_page():
     if not total_story:
         abort(404)
 
-    category_list = mongo.db.hindi_category.find()
+    category_list = mongo.db.english_category.find()
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
     return render_template('home_page.html',
