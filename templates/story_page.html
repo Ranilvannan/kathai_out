@@ -10,7 +10,15 @@
 			<div class="story">
                 <div class="story-title p-4">
                     <h2>{{story.title}}</h2>
-                    <p><span class="text-success pr-2">Last Updated</span>{{ story.story_id }}</p>
+                    <p class="small">
+                        <b class="text-success pr-2">Published On</b>
+                        <i class="blog-info">{{ story.story_id }}</i>
+                        <strong>|</strong>
+                        <b class="text-success pr-2">Category</b>
+                        {% for tag in story.tags %}
+                            <a class="blog-info blog-link" href="#">{{ tag.name }}</a>
+                        {% endfor %}
+                    </p>
                 </div>
                 {% if story.parent_url %}
                     <div class="story-previous">

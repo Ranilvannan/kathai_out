@@ -32,3 +32,12 @@ hr.dashed {
 .article{
 	background: white;
 }
+
+.blog-info {
+  background-color: #28a74514;
+  padding: 3px;
+}
+
+.blog-link{
+  color: rgb(4, 160, 241);
+}

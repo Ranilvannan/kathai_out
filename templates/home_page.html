@@ -12,14 +12,20 @@
 				<div class="blog-post" onclick="location.href='{{ url_for('story_page', site_url=rec.site_url) }}'">
 					<h2 class="blog-post-title p-2">{{ rec.title }}</h2>
 					<p class="blog-post-preview p-2">{{ rec.preview }}</p>
+					<div class="blog-post-status p-2">
+						<div class="text-muted small">
+							<b>Published On</b>
+							<i>{{ rec.story_id }}</i>
+						</div>
+						<div class="text-muted small">
+							<b>Category</b>
+							{% for tag in rec.tags %}
+								<a class="blog-info blog-link" href="#">{{ tag.name }}</a>
+							{% endfor %}
+
+						</div>
+					</div>
 				</div>
-				<div class="text-muted float-right small">Last Updated on {{ rec.story_id }}</div><br>
-				<p class="p-2">
-					<strong>Category</strong>
-					{% for tag in rec.tags %}
-						<button type="button" class="btn btn-success">{{ tag.name }}</button>
-					{% endfor %}
-				</p>
 				<hr class="dashed">
 			{% endfor %}
 			{% include "pagination.html" %}
