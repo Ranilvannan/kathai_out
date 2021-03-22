@@ -20,11 +20,11 @@ class StoryInsert:
 
     def bulk_insert(self, recs):
         if recs:
-            mongo.db.hindi.insert_many(recs)
+            mongo.db.english_story.insert_many(recs)
 
     def update_story(self, recs):
         for rec in recs:
-            mongo.db.hindi.find_one_and_replace({"story_id": rec["story_id"]}, rec)
+            mongo.db.english_story.find_one_and_replace({"story_id": rec["story_id"]}, rec)
 
     def get_json_data(self, file):
         insert_list = []
@@ -34,7 +34,7 @@ class StoryInsert:
             recs = json.load(json_file)
             if isinstance(recs, list):
                 for rec in recs:
-                    res = mongo.db.hindi.find({"story_id": rec["story_id"]}).count()
+                    res = mongo.db.english_story.find({"story_id": rec["story_id"]}).count()
                     if res:
                         update_list.append(rec)
                     else:
@@ -47,7 +47,7 @@ class StoryInsert:
         xml_list = []
 
         for item in list_files:
-            if item.endswith("hindi.json"):
+            if item.endswith("English_story.json"):
                 file_path = os.path.join(self.path, item)
                 xml_list.append(file_path)
 
@@ -69,11 +69,11 @@ class CategoryInsert:
 
     def bulk_insert(self, recs):
         if recs:
-            mongo.db.hindi_category.insert_many(recs)
+            mongo.db.english_category.insert_many(recs)
 
     def update_story(self, recs):
         for rec in recs:
-            mongo.db.hindi_category.find_one_and_replace({"url": rec["url"]}, rec)
+            mongo.db.english_category.find_one_and_replace({"url": rec["url"]}, rec)
 
     def get_json_data(self, file):
         insert_list = []
@@ -83,7 +83,7 @@ class CategoryInsert:
             recs = json.load(json_file)
             if isinstance(recs, list):
                 for rec in recs:
-                    res = mongo.db.hindi_category.find({"url": rec["url"]}).count()
+                    res = mongo.db.english_category.find({"url": rec["url"]}).count()
                     if res:
                         update_list.append(rec)
                     else:
@@ -96,7 +96,7 @@ class CategoryInsert:
         xml_list = []
 
         for item in list_files:
-            if item.endswith("hindi_category.json"):
+            if item.endswith("English_category.json"):
                 file_path = os.path.join(self.path, item)
                 xml_list.append(file_path)
 

@@ -13,7 +13,7 @@ PER_PAGE = 9
 @app.route('/')
 def home_page():
     page = request.args.get("page", type=int, default=1)
-    story_list = mongo.db.english.find()\
+    story_list = mongo.db.english_story.find()\
         .sort("story_id", -1)\
         .skip(PER_PAGE*(page-1))\
         .limit(PER_PAGE)
@@ -36,7 +36,7 @@ def home_page():
 @app.route('/category/<category>')
 def category_page(category):
     page = request.args.get("page", type=int, default=1)
-    story_list = mongo.db.hindi.find({"tags.url": category}) \
+    story_list = mongo.db.english_story.find({"tags.url": category}) \
         .sort("story_id", -1) \
         .skip(PER_PAGE * (page - 1)) \
         .limit(PER_PAGE)
@@ -45,7 +45,7 @@ def category_page(category):
     if not total_story:
         abort(404)
 
-    category_list = mongo.db.hindi_category.find()
+    category_list = mongo.db.english_category.find()
     tags = mongo.db.hindi.find_one({"tags.url": category}, {"tags.name": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
@@ -59,12 +59,12 @@ def category_page(category):
 @app.route('/story/<site_url>/')
 @app.route('/story/<site_url>')
 def story_page(site_url):
-    story = mongo.db.hindi.find_one({"site_url": site_url})
+    story = mongo.db.english_story.find_one({"site_url": site_url})
 
     if not story:
         abort(404)
 
-    category_list = mongo.db.hindi_category.find()
+    category_list = mongo.db.english_category.find()
     return render_template('story_page.html',
                            story=story,
                            category_list=category_list)
