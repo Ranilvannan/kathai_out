@@ -15,9 +15,7 @@
                         <i class="blog-info">{{ story.published_on }}</i>
                         <strong>|</strong>
                         <b class="text-success pr-2">Category</b>
-                        {% for tag in story.tags %}
-                            <a class="blog-info blog-link" href="#">{{ tag.name }}</a>
-                        {% endfor %}
+                        <a class="blog-info blog-link" href="{{ url_for('category_page', category=story.category.url) }}">{{ story.category.name }}</a>
                     </p>
                 </div>
                 {% if story.parent_url %}

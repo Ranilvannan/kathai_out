@@ -33,10 +33,9 @@ def home_page():
 
 
 @app.route('/category/<category>/')
-@app.route('/category/<category>')
 def category_page(category):
     page = request.args.get("page", type=int, default=1)
-    story_list = mongo.db.english_story.find({"tags.url": category,
+    story_list = mongo.db.english_story.find({"category.url": category,
                                               "language": "English"}) \
         .sort("story_id", -1) \
         .skip(PER_PAGE * (page - 1)) \
@@ -47,18 +46,17 @@ def category_page(category):
         abort(404)
 
     category_list = mongo.db.english_category.find()
-    tags = mongo.db.english_story.find_one({"tags.url": category}, {"tags.name": 1, "_id": 0})
+    tags = mongo.db.english_story.find_one({"category.url": category}, {"category.name": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
     return render_template('home_page.html',
                            records=story_list,
                            pagination=pagination,
                            category_list=category_list,
-                           title=tags["tags"][0]["name"])
+                           title=tags["category"]["name"])
 
 
 @app.route('/story/<site_url>/')
-@app.route('/story/<site_url>')
 def story_page(site_url):
     story = mongo.db.english_story.find_one({"site_url": site_url,
                                              "language": "English"})

@@ -19,10 +19,7 @@
 						</div>
 						<div class="text-muted small">
 							<b>Category</b>
-							{% for tag in rec.tags %}
-								<a class="blog-info blog-link" href="#">{{ tag.name }}</a>
-							{% endfor %}
-
+							<a class="blog-info blog-link" href="{{ url_for('category_page', category=rec.category.url) }}">{{ rec.category.name }}</a>
 						</div>
 					</div>
 				</div>
