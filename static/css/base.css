@@ -13,10 +13,10 @@ body {
 
 .navbar {
 
-    top: 0;
-    position: fixed;
-    width: 100%;
-    z-index: 21;
+    //top: 0;
+    //position: fixed;
+    //width: 100%;
+    //z-index: 21;
 
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
