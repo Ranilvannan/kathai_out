@@ -1,11 +1,14 @@
+import os
+
+
 class Config(object):
     DEBUG = False
     TESTING = False
 
 
 class ProductionConfig(Config):
-    MONGO_URI = "mongodb://localhost:27017/story"
-    IMPORT_PATH = "/tmp"
+    MONGO_URI = os.environ.get("MONGO_URI")
+    IMPORT_PATH = os.environ.get("IMPORT_PATH")
 
 
 class DevelopmentConfig(Config):
