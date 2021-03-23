@@ -18,10 +18,10 @@
                         <a class="blog-info blog-link" href="{{ url_for('category_page', category=story.category.url) }}">{{ story.category.name }}</a>
                     </p>
                 </div>
-                {% if story.parent_url %}
+                {% if story.prev.url %}
                     <div class="story-previous">
                         <div class="alert alert-success">
-				            Prev: <a href="#">{{story.parent_url}}</a>
+				            Prev: <a href="{{ url_for('story_page', site_url=story.prev.url) }}">{{story.prev.name}}</a>
 			            </div>
                     </div>
                 {% endif %}
