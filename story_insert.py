@@ -18,6 +18,9 @@ class StoryInsert:
             self.bulk_insert(insert_list)
             self.update_story(update_list)
 
+            if os.path.exists(file):
+                os.remove(file)
+
     def bulk_insert(self, recs):
         if recs:
             mongo.db.english_story.insert_many(recs)
@@ -66,6 +69,9 @@ class CategoryInsert:
             insert_list, update_list = self.get_json_data(file)
             self.bulk_insert(insert_list)
             self.update_story(update_list)
+
+            if os.path.exists(file):
+                os.remove(file)
 
     def bulk_insert(self, recs):
         if recs:
