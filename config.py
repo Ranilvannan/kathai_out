@@ -7,8 +7,8 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    MONGO_URI = os.environ.get("MONGO_URI")
-    IMPORT_PATH = os.environ.get("IMPORT_PATH")
+    MONGO_URI = "mongodb://localhost:27017/story"
+    IMPORT_PATH = "/home/vetrivel/story"
 
 
 class DevelopmentConfig(Config):
