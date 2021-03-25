@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, abort
+from flask import Flask, request, make_response, render_template, abort
 from flask_pymongo import PyMongo
 from story_insert import mongo, StoryInsert, CategoryInsert
 from pagination import Pagination
@@ -10,15 +10,15 @@ mongo.init_app(app)
 PER_PAGE = 9
 
 
+@app.route('/turn/<int:page>/')
 @app.route('/')
-def home_page():
-    page = request.args.get("page", type=int, default=1)
+def home_page(page=1):
     story_list = mongo.db.english_story.find({"language": "English"})\
         .sort("story_id", -1)\
         .skip(PER_PAGE*(page-1))\
         .limit(PER_PAGE)
 
-    total_story = story_list.count()
+    total_story = story_list.count(True)
     if not total_story:
         abort(404)
 
@@ -32,16 +32,16 @@ def home_page():
                            title="Home")
 
 
+@app.route('/category/<category>/turn/<int:page>/')
 @app.route('/category/<category>/')
-def category_page(category):
-    page = request.args.get("page", type=int, default=1)
+def category_page(category, page=1):
     story_list = mongo.db.english_story.find({"category.url": category,
                                               "language": "English"}) \
         .sort("story_id", -1) \
         .skip(PER_PAGE * (page - 1)) \
         .limit(PER_PAGE)
 
-    total_story = story_list.count()
+    total_story = story_list.count(True)
     if not total_story:
         abort(404)
 
@@ -68,6 +68,14 @@ def story_page(site_url):
     return render_template('story_page.html',
                            story=story,
                            category_list=category_list)
+
+
+@app.route('/article/sitemap.xml')
+def article_sitemap():
+    file_obj = open(app.config.get("IMPORT_PATH"))
+    resp = make_response(file_obj)
+    resp.headers['Content-type'] = 'text/xml; charset=utf-8'
+    return resp
 
 
 @app.errorhandler(404)
