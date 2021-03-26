@@ -1,7 +1,7 @@
 {% if pagination.is_valid%}
     <div class="text-right p-4">
 
-        <a href="?page={{ pagination.prev_page }}"
+        <a href="{{ ref_url }}turn/{{ pagination.prev_page }}"
            class="btn btn-outline-success
            {% if pagination.page == 1 %}disabled{% endif %}">
            Prev
@@ -9,21 +9,21 @@
 
         {% for rec in pagination.get_pages() %}
             {% if rec==pagination.page %}
-                <a href="?page={{ rec }}"
+                <a href="{{ ref_url }}turn/{{ rec }}"
                    class="btn btn-success">
                     {{ rec }}
                 </a>
             {% elif rec=='...' %}
                 ...
             {% else %}
-            <a href="?page={{ rec }}"
+            <a href="{{ ref_url }}turn/{{ rec }}"
                class="btn btn-outline-success">
                 {{ rec }}
             </a>
             {% endif %}
         {% endfor %}
 
-        <a href="?page={{ pagination.next_page }}"
+        <a href="{{ ref_url }}turn/{{ pagination.next_page }}"
            class="btn btn-outline-success
            {% if pagination.page == pagination.total_page %}disabled{% endif %}">
            Next

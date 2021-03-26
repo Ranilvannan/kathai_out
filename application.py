@@ -1,5 +1,4 @@
 from flask import Flask, request, make_response, render_template, abort
-from flask_pymongo import PyMongo
 from story_insert import mongo, StoryInsert, CategoryInsert
 from pagination import Pagination
 
@@ -7,7 +6,7 @@ app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 mongo.init_app(app)
 
-PER_PAGE = 9
+PER_PAGE = 2
 
 
 @app.route('/turn/<int:page>/')
@@ -18,17 +17,20 @@ def home_page(page=1):
         .skip(PER_PAGE*(page-1))\
         .limit(PER_PAGE)
 
-    total_story = story_list.count(True)
+    total_story = mongo.db.english_story.find({"language": "English"}).count(True)
     if not total_story:
         abort(404)
 
     category_list = mongo.db.english_category.find()
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
+    ref_url = "{0}".format(request.host_url)
+
     return render_template('home_page.html',
                            records=story_list,
                            pagination=pagination,
                            category_list=category_list,
+                           ref_url=ref_url,
                            title="Home")
 
 
@@ -41,7 +43,8 @@ def category_page(category, page=1):
         .skip(PER_PAGE * (page - 1)) \
         .limit(PER_PAGE)
 
-    total_story = story_list.count(True)
+    total_story = mongo.db.english_story.find({"category.url": category,
+                                              "language": "English"}).count(True)
     if not total_story:
         abort(404)
 
@@ -49,10 +52,13 @@ def category_page(category, page=1):
     tags = mongo.db.english_story.find_one({"category.url": category}, {"category.name": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
+    ref_url = "{0}{1}/{2}/".format(request.host_url, "category", category)
+
     return render_template('home_page.html',
                            records=story_list,
                            pagination=pagination,
                            category_list=category_list,
+                           ref_url=ref_url,
                            title=tags["category"]["name"])
 
 
