@@ -1,6 +1,7 @@
-from flask import Flask, request, make_response, render_template, abort
+from flask import Flask, request, make_response, render_template, abort, Response
 from story_insert import mongo, StoryInsert, CategoryInsert
 from pagination import Pagination
+import os
 
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
@@ -76,11 +77,24 @@ def story_page(site_url):
                            category_list=category_list)
 
 
-@app.route('/article/sitemap.xml')
-def article_sitemap():
-    file_obj = open(app.config.get("IMPORT_PATH"))
-    resp = make_response(file_obj)
-    resp.headers['Content-type'] = 'text/xml; charset=utf-8'
+@app.route('/article/<filename>')
+def article_sitemap(filename):
+    path = app.config.get("SITEMAP_PATH")
+    list_files = os.listdir(path)
+
+    file_path = None
+    for item in list_files:
+        if item == filename:
+            file_path = os.path.join(path, item)
+
+    if not file_path:
+        abort(404)
+
+    with open(file_path) as f:
+        file_content = f.read()
+
+    resp = make_response(file_content)
+    resp.headers['Content-type'] = 'application/xml; charset=utf-8'
     return resp
 
 
