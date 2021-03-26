@@ -5,6 +5,8 @@
 	<meta name="description" content="{% block description %}{% endblock %}">
 	<meta name="keywords" content="{% block keywords %}{% endblock %}">
 	<link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='img/favicon.png') }}"/>
+
+	<link rel='canonical' href="{{ request.url }}">
 	<meta charset="utf-8">
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MSVN84ZY8H"></script>
