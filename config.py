@@ -9,7 +9,7 @@ class Config(object):
 class ProductionConfig(Config):
     MONGO_URI = "mongodb://localhost:27017/story"
     IMPORT_PATH = "/home/vetrivel/story"
-    SITEMAP_PATH = "/home/vetrivel/Desktop/sitemap"
+    SITEMAP_PATH = "/home/vetrivel/english/sitemap"
 
 
 class DevelopmentConfig(Config):
