@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
 mongo.init_app(app)
 
-PER_PAGE = 2
+PER_PAGE = 9
 
 
 @app.route('/turn/<int:page>/')
