@@ -98,6 +98,18 @@ def article_sitemap(filename):
     return resp
 
 
+@app.route('/robots.txt')
+def robots():
+    text_data = """User-Agent: *
+Allow: /
+Sitemap: https://www.osholikes.com/article/march_sitemap.xml
+Sitemap: https://www.osholikes.com/article/sitemap.xml
+    """
+    r = Response(response=text_data, status=200, mimetype="text/plain")
+    r.headers["Content-Type"] = "text/plain; charset=utf-8"
+    return r
+
+
 @app.errorhandler(404)
 def page_not_found(error):
    return render_template('404.html', title='404'), 404
