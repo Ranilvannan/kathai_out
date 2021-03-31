@@ -79,7 +79,9 @@ def story_page(site_url):
 
 @app.route('/article/<filename>')
 def article_sitemap(filename):
-    path = app.config.get("SITEMAP_PATH")
+    local_path = app.config.get("IMPORT_PATH")
+    path = os.path.join(local_path, "sitemap")
+
     list_files = os.listdir(path)
 
     file_path = None
