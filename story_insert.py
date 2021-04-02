@@ -79,7 +79,7 @@ class CategoryInsert:
 
     def update_story(self, recs):
         for rec in recs:
-            mongo.db.english_category.find_one_and_replace({"url": rec["url"]}, rec)
+            mongo.db.english_category.find_one_and_replace({"category_id": rec["category_id"]}, rec)
 
     def get_json_data(self, file):
         insert_list = []
@@ -89,7 +89,7 @@ class CategoryInsert:
             recs = json.load(json_file)
             if isinstance(recs, list):
                 for rec in recs:
-                    res = mongo.db.english_category.find({"url": rec["url"]}).count()
+                    res = mongo.db.english_category.find({"category_id": rec["category_id"]}).count()
                     if res:
                         update_list.append(rec)
                     else:

@@ -101,20 +101,31 @@ def article_sitemap(filename):
 
 
 @app.route('/robots.txt')
-def robots():
-    text_data = """User-Agent: *
-Allow: /
-Sitemap: https://www.osholikes.com/article/march_sitemap.xml
-Sitemap: https://www.osholikes.com/article/sitemap.xml
-    """
-    r = Response(response=text_data, status=200, mimetype="text/plain")
-    r.headers["Content-Type"] = "text/plain; charset=utf-8"
-    return r
+def robots(filename="robots.txt"):
+    local_path = app.config.get("IMPORT_PATH")
+    path = os.path.join(local_path, "sitemap")
+
+    list_files = os.listdir(path)
+
+    file_path = None
+    for item in list_files:
+        if item == filename:
+            file_path = os.path.join(path, item)
+
+    if not file_path:
+        abort(404)
+
+    with open(file_path) as f:
+        file_content = f.read()
+
+    resp = make_response(file_content)
+    resp.headers['Content-type'] = 'text/plain; charset=utf-8'
+    return resp
 
 
 @app.errorhandler(404)
 def page_not_found(error):
-   return render_template('404.html', title='404'), 404
+    return render_template('404.html', title='404'), 404
 
 
 @app.cli.command('story_update')
