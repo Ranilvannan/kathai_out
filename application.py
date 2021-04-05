@@ -63,6 +63,7 @@ def category_page(category, page=1):
                            title=category_obj["category"]["name"],
                            description=category_obj["category"]["description"])
 
+
 @app.route('/category/<category>/<site_url>/')
 def story_page(category, site_url):
     story = mongo.db.english_story.find_one({"site_url": site_url,
