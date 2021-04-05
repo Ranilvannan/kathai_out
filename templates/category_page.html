@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{{title}}{% endblock %}
-{% block description %}{{description}}{% endblock %}
+{% block title %}{{category_obj.name}}{% endblock %}
+{% block description %}{{category_obj.description}}{% endblock %}
 {% block keywords %}English sex stories, Mallu sex stories, aunty sex stories, bhabhi sex stories, forced sex stories, latest new sex stories{% endblock %}
 
 
@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-sm-7 article pt-4">
 			{% for rec in records %}
-				<div class="blog-post" onclick="location.href='{{ url_for('story_page', category=rec.category.url, site_url=rec.site_url) }}'">
+				<article class="blog-post" onclick="location.href='{{ url_for('story_page', category=rec.category.url, site_url=rec.site_url) }}'">
 					<h4 class="blog-post-title p-2">{{ rec.title }}</h4>
 					<p class="blog-post-preview p-2">{{ rec.preview }}</p>
 					<div class="blog-post-status p-2">
@@ -22,8 +22,8 @@
 							<a class="blog-info blog-link" href="{{ url_for('category_page', category=rec.category.url) }}">{{ rec.category.name }}</a>
 						</div>
 					</div>
-				</div>
-				<hr class="dashed">
+					<hr class="dashed">
+				</article>
 			{% endfor %}
 			{% include "pagination.html" %}
 		</div>
