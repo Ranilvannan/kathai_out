@@ -50,7 +50,7 @@ def category_page(category, page=1):
         abort(404)
 
     category_list = mongo.db.english_category.find()
-    category_obj = mongo.db.english_story.find_one({"category.url": category}, {"category.name": 1, "_id": 0})
+    story = mongo.db.english_story.find_one({"category.url": category}, {"category": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
     ref_url = "{0}{1}/{2}/".format(request.host_url, "category", category)
@@ -60,8 +60,8 @@ def category_page(category, page=1):
                            pagination=pagination,
                            category_list=category_list,
                            ref_url=ref_url,
-                           title=category_obj["category"]["name"],
-                           description=category_obj["category"]["description"])
+                           title=story["category"]["name"],
+                           description=story["category"]["description"])
 
 
 @app.route('/category/<category>/<site_url>/')
