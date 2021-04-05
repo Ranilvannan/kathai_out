@@ -1,5 +1,5 @@
 from flask import Flask, request, make_response, render_template, abort, Response
-from story_insert import mongo, DataInsert
+from story_insert import mongo, StoryInsert, CategoryInsert
 from pagination import Pagination
 import os
 
@@ -129,18 +129,15 @@ def page_not_found(error):
 
 
 @app.cli.command('story_update')
-def article_update():
-    # Story Update
+def story_update():
     path = app.config.get("IMPORT_PATH")
-    param_key = "story_id"
-    filename = "English_story.json"
-    si = DataInsert(path, param_key, filename)
+    si = StoryInsert(path)
     si.trigger_import()
 
-    # Category Update
+
+@app.cli.command('category_update')
+def category_update():
     path = app.config.get("IMPORT_PATH")
-    param_key = "category_id"
-    filename = "English_category.json"
-    ci = DataInsert(path, param_key, filename)
+    ci = CategoryInsert(path)
     ci.trigger_import()
 
