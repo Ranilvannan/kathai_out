@@ -1,5 +1,5 @@
 from flask import Flask, request, make_response, render_template, abort, Response
-from story_insert import mongo, StoryInsert, CategoryInsert
+from story_insert import mongo, DataInsert
 from pagination import Pagination
 import os
 
@@ -10,7 +10,7 @@ mongo.init_app(app)
 PER_PAGE = 9
 
 
-@app.route('/turn/<int:page>/')
+@app.route('/page/<int:page>/')
 @app.route('/')
 def home_page(page=1):
     story_list = mongo.db.english_story.find({"language": "English"})\
@@ -35,7 +35,7 @@ def home_page(page=1):
                            title="Home")
 
 
-@app.route('/category/<category>/turn/<int:page>/')
+@app.route('/category/<category>/page/<int:page>/')
 @app.route('/category/<category>/')
 def category_page(category, page=1):
     story_list = mongo.db.english_story.find({"category.url": category,
@@ -128,16 +128,19 @@ def page_not_found(error):
     return render_template('404.html', title='404'), 404
 
 
-@app.cli.command('story_update')
-def story_update():
+@app.cli.command('article_update')
+def article_update():
+    # Story Update
     path = app.config.get("IMPORT_PATH")
-    si = StoryInsert(path)
+    param_key = "story_id"
+    filename = "English_story.json"
+    si = DataInsert(path, param_key, filename)
     si.trigger_import()
 
-
-@app.cli.command('category_update')
-def category_update():
+    # Category Update
     path = app.config.get("IMPORT_PATH")
-    ci = CategoryInsert(path)
+    param_key = "category_id"
+    filename = "English_category.json"
+    ci = DataInsert(path, param_key, filename)
     ci.trigger_import()
 
