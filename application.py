@@ -31,8 +31,7 @@ def home_page(page=1):
                            records=story_list,
                            pagination=pagination,
                            category_list=category_list,
-                           ref_url=ref_url,
-                           title="Home")
+                           ref_url=ref_url)
 
 
 @app.route('/category/<category>/page/<int:page>/')
