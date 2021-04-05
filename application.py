@@ -50,21 +50,21 @@ def category_page(category, page=1):
         abort(404)
 
     category_list = mongo.db.english_category.find()
-    tags = mongo.db.english_story.find_one({"category.url": category}, {"category.name": 1, "_id": 0})
+    category_obj = mongo.db.english_story.find_one({"category.url": category}, {"category.name": 1, "_id": 0})
     pagination = Pagination(total_count=total_story, page=page, per_page=PER_PAGE)
 
     ref_url = "{0}{1}/{2}/".format(request.host_url, "category", category)
 
-    return render_template('home_page.html',
+    return render_template('category_page.html',
                            records=story_list,
                            pagination=pagination,
                            category_list=category_list,
                            ref_url=ref_url,
-                           title=tags["category"]["name"])
+                           title=category_obj["category"]["name"],
+                           description=category_obj["category"]["description"])
 
-
-@app.route('/story/<site_url>/')
-def story_page(site_url):
+@app.route('/category/<category>/<site_url>/')
+def story_page(category, site_url):
     story = mongo.db.english_story.find_one({"site_url": site_url,
                                              "language": "English"})
 
@@ -128,7 +128,7 @@ def page_not_found(error):
     return render_template('404.html', title='404'), 404
 
 
-@app.cli.command('article_update')
+@app.cli.command('story_update')
 def article_update():
     # Story Update
     path = app.config.get("IMPORT_PATH")

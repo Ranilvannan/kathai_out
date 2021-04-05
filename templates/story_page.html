@@ -21,7 +21,7 @@
                 {% if story.prev.url %}
                     <div class="story-previous">
                         <div class="alert alert-success">
-				            Prev: <a href="{{ url_for('story_page', site_url=story.prev.url) }}">{{story.prev.name}}</a>
+				            Prev: <a href="{{ url_for('story_page', category=story.category.url, site_url=story.prev.url) }}">{{story.prev.name}}</a>
 			            </div>
                     </div>
                 {% endif %}
