@@ -18,7 +18,7 @@ def home_page(page=1):
         .skip(PER_PAGE*(page-1))\
         .limit(PER_PAGE)
 
-    total_story = story_list.count(True)
+    total_story = mongo.db.english_story.find({"language": "English"}).count(True)
     if not total_story:
         abort(404)
 
@@ -43,7 +43,8 @@ def category_page(category, page=1):
         .skip(PER_PAGE * (page - 1)) \
         .limit(PER_PAGE)
 
-    total_story = story_list.count(True)
+    total_story = mongo.db.english_story.find({"category.url": category,
+                                              "language": "English"}).count(True)
     if not total_story:
         abort(404)
 
