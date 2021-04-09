@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}English Sex Story - {{story.title}}{% endblock %}
+{% block title %}{{story.title}}{% endblock %}
 {% block description %}{{ story.category.name}} - {{story.preview}}{% endblock %}
 {% block keywords %}English sex stories, Mallu sex stories, aunty sex stories, bhabhi sex stories, forced sex stories, latest new sex stories{% endblock %}
 
@@ -27,7 +27,7 @@
                 {% endif %}
                 <div class="story-content pt-4">
                     {% for rec in story.content_ids %}
-			            <p>{{ rec.content }}</p>
+			            <p>{{ rec }}</p>
 			        {% endfor %}
                 </div>
             </div>
