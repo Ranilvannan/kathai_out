@@ -14,7 +14,7 @@ PER_PAGE = 9
 @app.route('/')
 def home_page(page=1):
     if page < 1:
-        return redirect(url_for('home_page'))
+        page = 1
     story_list = mongo.db.english_story.find({"language": "English"})\
         .sort("story_id", -1)\
         .skip(PER_PAGE*(page-1))\
@@ -40,7 +40,7 @@ def home_page(page=1):
 @app.route('/category/<category>/')
 def category_page(category, page=1):
     if page < 1:
-        return redirect(url_for('home_page'))
+        page = 1
     story_list = mongo.db.english_story.find({"category.url": category,
                                               "language": "English"}) \
         .sort("story_id", -1) \
