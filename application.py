@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, render_template, abort, Response
+from flask import Flask, request, make_response, render_template, abort, Response, redirect, url_for
 from story_insert import mongo, StoryInsert, CategoryInsert
 from pagination import Pagination
 import os
@@ -14,7 +14,7 @@ PER_PAGE = 9
 @app.route('/')
 def home_page(page=1):
     if page < 1:
-        abort(404)
+        redirect(url_for('home_page'))
     story_list = mongo.db.english_story.find({"language": "English"})\
         .sort("story_id", -1)\
         .skip(PER_PAGE*(page-1))\
@@ -40,7 +40,7 @@ def home_page(page=1):
 @app.route('/category/<category>/')
 def category_page(category, page=1):
     if page < 1:
-        abort(404)
+        redirect(url_for('category_page'))
     story_list = mongo.db.english_story.find({"category.url": category,
                                               "language": "English"}) \
         .sort("story_id", -1) \
