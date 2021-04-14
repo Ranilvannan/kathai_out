@@ -40,7 +40,7 @@ def home_page(page=1):
 @app.route('/category/<category>/')
 def category_page(category, page=1):
     if page < 1:
-        return redirect(url_for('category_page'))
+        return redirect(url_for('home_page'))
     story_list = mongo.db.english_story.find({"category.url": category,
                                               "language": "English"}) \
         .sort("story_id", -1) \
