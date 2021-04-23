@@ -6,7 +6,7 @@
         </a>
         <div class="dropdown-menu bg-success border-0" aria-labelledby="navbarDropdownMenuLink">
             {% for rec in category_list %}
-                <a class="nav-link" href="{{ url_for('category_page', category=rec.url) }}">{{rec.name}}</a>
+                <a class="nav-link" href="{{ url_for('category_page', cat_id=rec.url) }}">{{rec.name}}</a>
             {% endfor %}
         </div>
       </li>
