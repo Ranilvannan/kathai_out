@@ -46,8 +46,10 @@ class Pagination:
 
         if (1 < self.prev_page < self.total_page) and (self.prev_page not in page_list) and self.has_prev():
             page_list.insert(1, '...')
+            page_list.insert(2, self.prev_page)
 
         if (1 < self.next_page < self.total_page) and (self.next_page not in page_list) and self.has_next():
             page_list.insert(len(page_list) - 1, '...')
+            page_list.insert(len(page_list) - 2, self.next_page)
 
         return page_list

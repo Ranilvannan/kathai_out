@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
-PER_PAGE = 9
+PER_PAGE = 2
 
 
 def story_collect():

@@ -3,8 +3,7 @@
 	<head>
 	<title>{% block title %}{% endblock %}</title>
 	<meta name="description" content="{% block description %}{% endblock %}">
-	<meta name="keywords" content="{% block keywords %}{% endblock %}">
-	<link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='img/favicon.ico') }}"/>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}"/>
 	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 	<link rel='canonical' href="{{ request.url }}">
 	<meta charset="utf-8">
@@ -26,7 +25,7 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-sm bg-success navbar-dark">
-			<a class="navbar-brand" href="{{ url_for('home_page')}}">Sex story osholikes</a>
+			<a class="navbar-brand" href="{{ url_for('home_page')}}">Pico Sex story</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
