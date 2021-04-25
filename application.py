@@ -139,7 +139,8 @@ def story_update():
     path = app.config.get("IMPORT_PATH")
     col = story_collect()
     params = "story_id"
-    file_suffix = "English_story.json"
+    lang = app.config.get("LANGUAGE")
+    file_suffix = "{0}_story.json".format(lang)
 
     si = StoryInsert(path, col, params, file_suffix)
     si.trigger_import()
@@ -150,7 +151,8 @@ def category_update():
     path = app.config.get("IMPORT_PATH")
     col = category_collect()
     params = "category_id"
-    file_suffix = "English_category.json"
+    lang = app.config.get("LANGUAGE")
+    file_suffix = "{0}_category.json".format(lang)
 
     ci = StoryInsert(path, col, params, file_suffix)
     ci.trigger_import()
