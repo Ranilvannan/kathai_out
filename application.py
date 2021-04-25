@@ -9,22 +9,29 @@ app.config.from_object('config.ProductionConfig')
 PER_PAGE = 9
 
 
-def get_col(col):
+def story_collect():
     uri = app.config.get("MONGO_URI")
     database = app.config.get("DATABASE")
-
+    story = app.config.get("STORY")
     client = pymongo.MongoClient(uri)
     db = client[database]
-    return db[col]
+    return db[story]
+
+
+def category_collect():
+    uri = app.config.get("MONGO_URI")
+    database = app.config.get("DATABASE")
+    category = app.config.get("CATEGORY")
+    client = pymongo.MongoClient(uri)
+    db = client[database]
+    return db[category]
 
 
 @app.route('/')
 def home_page():
     lang = app.config.get("LANGUAGE")
-    story = app.config.get("STORY")
-    category = app.config.get("CATEGORY")
-    story_col = get_col(story)
-    category_col = get_col(category)
+    story_col = story_collect()
+    category_col = category_collect()
     page = request.args.get("page", type=int, default=1)
 
     data_dict = {"language": lang}
@@ -53,10 +60,8 @@ def home_page():
 @app.route('/category/<cat_id>/')
 def category_page(cat_id):
     lang = app.config.get("LANGUAGE")
-    story = app.config.get("STORY")
-    category = app.config.get("CATEGORY")
-    story_col = get_col(story)
-    category_col = get_col(category)
+    story_col = story_collect()
+    category_col = category_collect()
     page = request.args.get("page", type=int, default=1)
 
     data_dict = {"language": lang, "category.url": cat_id}
@@ -87,10 +92,8 @@ def category_page(cat_id):
 @app.route('/category/<cat_id>/<site_url>/')
 def story_page(cat_id, site_url):
     lang = app.config.get("LANGUAGE")
-    story = app.config.get("STORY")
-    category = app.config.get("CATEGORY")
-    story_col = get_col(story)
-    category_col = get_col(category)
+    story_col = story_collect()
+    category_col = category_collect()
 
     data_dict = {"language": lang, "site_url": site_url}
     record = story_col.find_one(data_dict)
@@ -104,50 +107,26 @@ def story_page(cat_id, site_url):
                            category_list=category_list)
 
 
-@app.route('/article/<filename>')
-def article_sitemap(filename):
+@app.route('/<filename>.txt')
+@app.route('/<filename>.xml')
+def static_rs_file(filename):
+    file_suffix_to_mimetype = {
+        '.txt': 'text/plain',
+        '.xml': 'application/xml'
+    }
     local_path = app.config.get("IMPORT_PATH")
-    path = os.path.join(local_path, "sitemap")
+    path = os.path.join(local_path, "sitemap", request.path[1:])
 
-    list_files = os.listdir(path)
-
-    file_path = None
-    for item in list_files:
-        if item == filename:
-            file_path = os.path.join(path, item)
-
-    if not file_path:
+    try:
+        file_data = open(path)
+    except:
         abort(404)
 
-    with open(file_path) as f:
-        file_content = f.read()
+    root, ext = os.path.splitext(path)
+    if ext in file_suffix_to_mimetype:
+        return Response(file_data.read(), mimetype=file_suffix_to_mimetype[ext])
 
-    resp = make_response(file_content)
-    resp.headers['Content-type'] = 'application/xml; charset=utf-8'
-    return resp
-
-
-@app.route('/robots.txt')
-def robots(filename="robots.txt"):
-    local_path = app.config.get("IMPORT_PATH")
-    path = os.path.join(local_path, "sitemap")
-
-    list_files = os.listdir(path)
-
-    file_path = None
-    for item in list_files:
-        if item == filename:
-            file_path = os.path.join(path, item)
-
-    if not file_path:
-        abort(404)
-
-    with open(file_path) as f:
-        file_content = f.read()
-
-    resp = make_response(file_content)
-    resp.headers['Content-type'] = 'text/plain; charset=utf-8'
-    return resp
+    return file_data.read()
 
 
 @app.errorhandler(404)
@@ -158,8 +137,7 @@ def page_not_found(error):
 @app.cli.command('story_update')
 def story_update():
     path = app.config.get("IMPORT_PATH")
-    story = app.config.get("STORY")
-    col = get_col(story)
+    col = story_collect()
     params = "story_id"
     file_suffix = "English_story.json"
 
@@ -170,8 +148,7 @@ def story_update():
 @app.cli.command('category_update')
 def category_update():
     path = app.config.get("IMPORT_PATH")
-    category = app.config.get("CATEGORY")
-    col = get_col(category)
+    col = category_collect()
     params = "category_id"
     file_suffix = "English_category.json"
 
